@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STÖRMERWEST — Gas Turbine Power Blocks</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --slate: #1e3a5f;
+    --steel: #4a6fa5;
+    --gold: #c9a84c;
+    --offwhite: #f4f0e8;
+    --mist: #d4cfc4;
+    --dark: #080f18;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--offwhite);
+    font-family: 'Source Sans 3', sans-serif;
+    overflow-x: hidden;
+    padding-top: 0;
+  }
+
+  /* ─── FIXED HEADER WRAPPER ─── */
+  .fixed-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .draft-banner {
+    background: #c9a84c;
+    color: #080f18;
+    text-align: center;
+    padding: 9px 24px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(8, 15, 24, 0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    color: var(--offwhite);
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--mist);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 120px 48px 0;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, rgba(8,15,24,0.6) 0%, rgba(8,15,24,0.3) 50%, rgba(8,15,24,0.85) 100%),
+      url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1600&q=80') center/cover no-repeat;
+  }
+
+  /* Mountain silhouette SVG overlay */
+  .mountain-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 280px;
+    opacity: 0.18;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 820px;
+  }
+
+  .hero-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 8rem);
+    line-height: 0.9;
+    letter-spacing: 0.04em;
+    color: var(--offwhite);
+    margin-bottom: 8px;
+  }
+
+  .hero-logo .umlaut { color: var(--gold); }
+
+  .hero-arrow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 24px;
+    opacity: 0.5;
+  }
+
+  .arrow-line {
+    height: 1px;
+    width: 120px;
+    background: var(--gold);
+  }
+
+  .arrow-head {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 10px solid var(--gold);
+  }
+
+  .hero-sub {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    color: var(--mist);
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .hero-tagline {
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--steel);
+    font-weight: 600;
+    margin-bottom: 40px;
+  }
+
+  .hero-tagline span { color: var(--mist); margin: 0 8px; }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 14px 40px;
+    background: var(--gold);
+    color: var(--dark);
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  .btn-primary:hover {
+    background: var(--offwhite);
+    transform: translateX(-3px);
+  }
+
+  .btn-secondary {
+    display: inline-block;
+    padding: 14px 40px;
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--mist);
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    margin-left: 16px;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: rgba(8,15,24,0.85);
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .stat-item {
+    padding: 22px 32px;
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-top: 4px;
+    opacity: 0.7;
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    padding: 100px 48px;
+  }
+
+  .about, .services, .founder, .contact, .industries {
+    scroll-margin-top: 100px;
+  }
+
+  .section-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    color: var(--offwhite);
+    margin-bottom: 24px;
+  }
+
+  .section-body {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--mist);
+    max-width: 620px;
+  }
+
+  /* ─── ABOUT ─── */
+  .about {
+    background: var(--dark);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-visual {
+    position: relative;
+    height: 420px;
+    background:
+      linear-gradient(135deg, var(--slate) 0%, var(--navy) 100%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about-visual-inner {
+    text-align: center;
+    opacity: 0.15;
+  }
+
+  .turbine-icon {
+    font-size: 8rem;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .about-visual-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+    color: var(--offwhite);
+  }
+
+  .about-visual-border {
+    position: absolute;
+    inset: 16px;
+    border: 1px solid rgba(201,168,76,0.3);
+    pointer-events: none;
+  }
+
+  .about-visual-corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: 0.7;
+  }
+
+  .corner-tl { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
+  .corner-tr { top: 8px; right: 8px; border-width: 2px 2px 0 0; }
+  .corner-bl { bottom: 8px; left: 8px; border-width: 0 0 2px 2px; }
+  .corner-br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+
+  /* ─── SERVICES ─── */
+  .services {
+    background: var(--navy);
+  }
+
+  .services-header {
+    max-width: 600px;
+    margin-bottom: 60px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .service-card {
+    background: rgba(30, 58, 95, 0.3);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 40px 32px;
+    transition: background 0.3s, border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--gold);
+    transition: height 0.3s;
+  }
+
+  .service-card:hover::before { height: 100%; }
+  .service-card:hover { background: rgba(30, 58, 95, 0.5); border-color: rgba(201,168,76,0.2); }
+
+  .service-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: rgba(201,168,76,0.12);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .service-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--offwhite);
+    margin-bottom: 12px;
+  }
+
+  .service-desc {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--mist);
+    opacity: 0.8;
+  }
+
+  /* ─── FOUNDER ─── */
+  .founder {
+    background: var(--dark);
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .founder-card {
+    background: var(--navy);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 40px 32px;
+    position: sticky;
+    top: 100px;
+  }
+
+  .founder-photo-placeholder {
+    width: 100%;
+    height: 220px;
+    background: linear-gradient(160deg, var(--slate), var(--navy));
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    opacity: 0.4;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .founder-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.06em;
+    color: var(--offwhite);
+    margin-bottom: 4px;
+  }
+
+  .founder-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .founder-detail {
+    font-size: 0.82rem;
+    color: var(--mist);
+    opacity: 0.7;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .founder-detail strong {
+    color: var(--offwhite);
+    font-weight: 600;
+    opacity: 1;
+  }
+
+  .founder-bio {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--mist);
+  }
+
+  .founder-bio p { margin-bottom: 20px; }
+
+  .founder-credentials {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .credential {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.82rem;
+    color: var(--mist);
+    opacity: 0.85;
+  }
+
+  .credential-dot {
+    width: 6px;
+    height: 6px;
+    min-width: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    margin-top: 6px;
+  }
+
+  /* ─── INDUSTRIES ─── */
+  .industries {
+    background: var(--slate);
+    padding: 80px 48px;
+  }
+
+  .industries-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.06);
+    margin-top: 48px;
+  }
+
+  .industry-item {
+    background: var(--slate);
+    padding: 32px 24px;
+    text-align: center;
+    transition: background 0.2s;
+  }
+
+  .industry-item:hover { background: var(--navy); }
+
+  .industry-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
+
+  .industry-name {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--offwhite);
+    font-weight: 600;
+  }
+
+  /* ─── CONTACT ─── */
+  .contact {
+    background: var(--dark);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .contact-info { }
+
+  .contact-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .contact-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .contact-text {
+    font-size: 0.88rem;
+    color: var(--mist);
+    line-height: 1.6;
+  }
+
+  .contact-text strong {
+    display: block;
+    color: var(--offwhite);
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  input, textarea, select {
+    width: 100%;
+    background: rgba(30, 58, 95, 0.2);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--offwhite);
+    padding: 14px 18px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: rgba(201,168,76,0.5);
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: rgba(212,207,196,0.35);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+  }
+
+  textarea { min-height: 120px; resize: vertical; }
+
+  select option { background: var(--navy); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(201,168,76,0.15);
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--offwhite);
+  }
+
+  .footer-logo span { color: var(--gold); }
+
+  .footer-tagline {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mist);
+    opacity: 0.5;
+  }
+
+  .footer-copy {
+    font-size: 0.72rem;
+    color: var(--mist);
+    opacity: 0.4;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.3), transparent);
+    margin: 0 48px;
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+
+    .draft-banner {
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      padding: 8px 12px;
+    }
+
+    nav {
+      padding: 14px 20px;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    .hero {
+      padding: 140px 24px 80px;
+    }
+
+    .stats-bar {
+      grid-template-columns: repeat(2, 1fr);
+      position: relative;
+    }
+
+    .stat-item {
+      padding: 16px 20px;
+    }
+
+    section {
+      padding: 60px 24px;
+    }
+
+    .about {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .about-visual {
+      height: 220px;
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .industries-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .founder {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .founder-card {
+      position: static;
+    }
+
+    .contact {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .btn-primary, .btn-secondary {
+      display: block;
+      text-align: center;
+      margin-left: 0;
+      margin-top: 12px;
+      width: 100%;
+    }
+
+    footer {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+      padding: 32px 24px;
+    }
+
+    .divider {
+      margin: 0 24px;
+    }
+
+    .industries {
+      padding: 60px 24px;
+    }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-content > * {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-content > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero-content > *:nth-child(3) { animation-delay: 0.35s; }
+  .hero-content > *:nth-child(4) { animation-delay: 0.45s; }
+  .hero-content > *:nth-child(5) { animation-delay: 0.55s; }
+  .hero-content > *:nth-child(6) { animation-delay: 0.65s; }
+</style>
+</head>
+<body>
+
+<div class="fixed-header">
+  <div class="draft-banner">🚧 &nbsp; Draft — Version 1 &nbsp;·&nbsp; Feb 2026 &nbsp;·&nbsp; For Review Only — Not For Public Distribution &nbsp; 🚧</div>
+  <nav>
+    <div class="nav-logo">ST<span>Ö</span>RMERWEST</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#founder">Ed Stoermer</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Mountain SVG -->
+  <svg class="mountain-overlay" viewBox="0 0 1440 280" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,280 L0,200 L80,140 L160,180 L280,60 L400,140 L480,100 L580,160 L680,40 L780,120 L860,80 L960,160 L1060,70 L1160,130 L1260,90 L1360,150 L1440,120 L1440,280 Z" fill="white"/>
+    <path d="M0,280 L0,220 L120,170 L200,200 L320,120 L440,170 L540,140 L640,190 L740,100 L820,155 L920,115 L1020,180 L1120,105 L1220,160 L1320,125 L1440,165 L1440,280 Z" fill="white" opacity="0.4"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-tag">Industrial Power Solutions</div>
+    <div class="hero-logo">ST<span class="umlaut">Ö</span>RMER<br>WEST</div>
+    <div class="hero-arrow">
+      <div class="arrow-head"></div>
+      <div class="arrow-line"></div>
+    </div>
+    <div class="hero-sub">Gas Turbine Power Blocks &amp; CHP Systems Engineering</div>
+    <div class="hero-tagline">
+      Fuel <span>·</span> Water <span>·</span> Sound <span>·</span> Emissions
+    </div>
+    <div>
+      <a href="#services" class="btn-primary">Our Services</a>
+      <a href="#contact" class="btn-secondary">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-num">400+</div>
+      <div class="stat-label">MWe CHP Projects</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">##</div>
+      <div class="stat-label">stat TBD</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">##</div>
+      <div class="stat-label">stat TBD</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">##</div>
+      <div class="stat-label">stat TBD</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-visual">
+    <div class="about-visual-inner">
+      <span class="turbine-icon">⚙</span>
+      <div class="about-visual-label">Gas Turbine Systems</div>
+    </div>
+    <div class="about-visual-corner corner-tl"></div>
+    <div class="about-visual-corner corner-tr"></div>
+    <div class="about-visual-corner corner-bl"></div>
+    <div class="about-visual-corner corner-br"></div>
+  </div>
+  <div>
+    <div class="section-label">Who We Are</div>
+    <h2 class="section-title">Engineering Power Solutions That Work.</h2>
+    <p class="section-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header">
+    <div class="section-label">What We Do</div>
+    <h2 class="section-title">What We Offer</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-title">service name goes here</div>
+      <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam quis nostrud exercitation.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-title">service name goes here</div>
+      <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam quis nostrud exercitation.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-title">service name goes here</div>
+      <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam quis nostrud exercitation.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-title">service name goes here</div>
+      <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam quis nostrud exercitation.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-title">service name goes here</div>
+      <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam quis nostrud exercitation.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-title">service name goes here</div>
+      <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam quis nostrud exercitation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="industries">
+  <div class="section-label">Industries Served</div>
+  <h2 class="section-title">Who We Work With</h2>
+  <div class="industries-grid">
+    <div class="industry-item">
+      <span class="industry-icon">🏭</span>
+      <div class="industry-name">Refineries</div>
+    </div>
+    <div class="industry-item">
+      <span class="industry-icon">🖥</span>
+      <div class="industry-name">Data Centers</div>
+    </div>
+    <div class="industry-item">
+      <span class="industry-icon">🏥</span>
+      <div class="industry-name">Healthcare</div>
+    </div>
+    <div class="industry-item">
+      <span class="industry-icon">⚡</span>
+      <div class="industry-name">Power Plants</div>
+    </div>
+    <div class="industry-item">
+      <span class="industry-icon">🏔</span>
+      <div class="industry-name">Industrial</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOUNDER -->
+<section class="founder" id="founder">
+  <div class="founder-card">
+    <div class="founder-photo-placeholder">👤</div>
+    <div class="founder-name">Ed Stoermer</div>
+    <div class="founder-title">Founder &amp; Principal Engineer</div>
+    <div class="founder-credentials">
+      <div class="credential">
+        <div class="credential-dot"></div>
+        <span><strong>B.S. Mechanical Engineering</strong> — University of Cincinnati</span>
+      </div>
+      <div class="credential">
+        <div class="credential-dot"></div>
+        <span><strong>Executive MBA</strong> — Xavier University</span>
+      </div>
+      <div class="credential">
+        <div class="credential-dot"></div>
+        <span><strong>400+ MWe</strong> of CHP projects since 2012</span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="section-label">The Man Behind It</div>
+    <h2 class="section-title">Meet Ed Stoermer</h2>
+    <div class="founder-bio">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-info">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Get In Touch</h2>
+    <p class="section-body" style="margin-bottom: 40px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    <div class="contact-detail">
+      <div class="contact-icon">✉</div>
+      <div class="contact-text">
+        <strong>Email</strong>
+        [<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4c29212d25200c3f38233e21293e3b293f3862222938">[email&#160;protected]</a>]
+      </div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-icon">📞</div>
+      <div class="contact-text">
+        <strong>Phone</strong>
+        [Phone number TBD]
+      </div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-icon">🌐</div>
+      <div class="contact-text">
+        <strong>Web</strong>
+        stormerwest.net
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="contact-form">
+      <div class="form-row">
+        <input type="text" placeholder="First Name">
+        <input type="text" placeholder="Last Name">
+      </div>
+      <input type="email" placeholder="Email Address">
+      <input type="text" placeholder="Company / Organization">
+      <select>
+        <option value="" disabled selected>What are you reaching out about?</option>
+        <option>need options from Ed</option>
+      </select>
+      <textarea placeholder="Tell us about your project..."></textarea>
+      <a href="#" class="btn-primary" style="text-align:center;">Send Message</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">ST<span>Ö</span>RMERWEST</div>
+    <div class="footer-tagline">Fuel · Water · Sound · Emissions</div>
+  
